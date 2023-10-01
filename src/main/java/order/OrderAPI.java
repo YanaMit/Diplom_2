@@ -11,9 +11,11 @@ public class OrderAPI {
 
 
     @Step("Make order")
-    public static Response makeOrder(Order order) {
+    public static Response makeOrder(String accessToken, Order order) {
         Response response = given()
                 .header("Content-type", "application/json")
+                .and()
+                .header("Authorization", accessToken)
                 .and()
                 .body(order)
                 .when()

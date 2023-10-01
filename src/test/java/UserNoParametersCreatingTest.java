@@ -12,9 +12,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class UserNoParametersCreatingTest {
 
-    String email = "email" + RandomStringUtils.randomNumeric(3) + "@yandex.ru";
-    String password = "password";
-    String name = "name";
+    private String email = "email" + RandomStringUtils.randomNumeric(3) + "@yandex.ru";
+    private String password = "password";
+    private String name = "name";
 
     @Before
     public void setUp() {

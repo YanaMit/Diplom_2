@@ -15,10 +15,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class CreateUserTest {
 
-    String accessToken;
-    String email = "email" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
-    String password = "password";
-    String name = "name";
+    private String accessToken;
+    private String email = "email" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
+    private String password = "password";
+    private String name = "name";
 
     @Before
     public void setUp() {

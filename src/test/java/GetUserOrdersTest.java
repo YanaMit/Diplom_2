@@ -63,14 +63,14 @@ public class GetUserOrdersTest {
                 .and()
                 .statusCode(SC_OK);
 
-        accessToken = responseCreate.then().extract().path("accessToken").toString();
+        accessToken = responseLogin.then().extract().path("accessToken").toString();
 
-        Response responseMakeOrderOne = OrderAPI.makeOrder(orderOne);
+        Response responseMakeOrderOne = OrderAPI.makeOrder(accessToken, orderOne);
         responseMakeOrderOne
                 .then()
                 .assertThat().body("success", equalTo(true));
 
-        Response responseMakeOrderTwo = OrderAPI.makeOrder(orderTwo);
+        Response responseMakeOrderTwo = OrderAPI.makeOrder(accessToken, orderTwo);
         responseMakeOrderTwo
                 .then()
                 .assertThat().body("success", equalTo(true));
@@ -80,7 +80,9 @@ public class GetUserOrdersTest {
                 .then()
                 .assertThat().body("success",equalTo(true))
                 .and()
-                .body("orders",notNullValue());
+                .body("orders",notNullValue())
+                .and()
+                .body("total",notNullValue());
 
     }
 

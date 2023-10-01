@@ -58,7 +58,7 @@ public class MakeOrderTest {
 
         accessToken = responseCreate.then().extract().path("accessToken").toString();
 
-        Response responseMakeOrder = OrderAPI.makeOrder(order);
+        Response responseMakeOrder = OrderAPI.makeOrder(accessToken, order);
         responseMakeOrder
                 .then()
                 .assertThat().body("success", equalTo(true))
@@ -73,7 +73,7 @@ public class MakeOrderTest {
     @DisplayName("Make order noauthorized user, result ok")
     public void makeOrderNoAuthorizedUserExpectOk() {
 
-        Response responseMakeOrder = OrderAPI.makeOrder(order);
+        Response responseMakeOrder = OrderAPI.makeOrder(accessToken, order);
         responseMakeOrder
                 .then()
                 .assertThat().body("success", equalTo(true))
@@ -93,7 +93,7 @@ public class MakeOrderTest {
         ingredients.add("61c0c5a71d1f82001bdaaa76");
         order = new Order(ingredients);
 
-        Response responseMakeOrder = OrderAPI.makeOrder(order);
+        Response responseMakeOrder = OrderAPI.makeOrder(accessToken, order);
         responseMakeOrder
                 .then()
                 .assertThat().statusCode(SC_INTERNAL_SERVER_ERROR);;
@@ -107,7 +107,7 @@ public class MakeOrderTest {
         ingredients = new ArrayList<>();
         order = new Order(ingredients);
 
-        Response responseMakeOrder = OrderAPI.makeOrder(order);
+        Response responseMakeOrder = OrderAPI.makeOrder(accessToken, order);
         responseMakeOrder
                 .then()
                 .assertThat().statusCode(SC_BAD_REQUEST)
