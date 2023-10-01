@@ -88,7 +88,7 @@ public class GetUserOrdersTest {
 
 
     @Test
-    @DisplayName("Get orders no authorized user, result ok")
+    @DisplayName("Get orders no authorized user, result false")
     public void getOrdersNoAuthorizedUserExpectError() {
 
         Response responseGetOrdersNoAuthorized = OrderAPI.getOrderNoAuthorizedUser();
