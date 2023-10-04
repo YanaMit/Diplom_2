@@ -1,3 +1,4 @@
+import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import order.Order;
 import order.OrderAPI;
@@ -20,28 +21,32 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class GetUserOrdersTest {
 
+    public static Faker faker = new Faker();
     private List<String> ingredients;
     private List<String> ingredientsTwo;
     private static String accessToken;
     private Order orderOne;
     private Order orderTwo;
-    private static final String EMAIL = "email" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
-    private static final String PASSWORD = "password";
-    private static final String NAME = "name";
+    private static final String EMAIL = RandomStringUtils.randomNumeric(5) + faker.internet().emailAddress();
+    private static final String PASSWORD = faker.internet().password();
+    private static final String NAME = faker.name().firstName();
     public static final User USER = new User(EMAIL, PASSWORD, NAME);
 
     @Before
     public void setUp() {
         RestAssured.baseURI = BaseURI.BURGER_SERVICE_URI;
+
+        Response getResponse = OrderAPI.getIngredients();
+        String firstIngredient = getResponse.then().extract().path("data[0]._id");
+        String secondIngredient = getResponse.then().extract().path("data[1]._id");
         ingredients = new ArrayList<>();
-        ingredients.add("61c0c5a71d1f82001bdaaa6d");
-        ingredients.add("61c0c5a71d1f82001bdaaa76");
-        ingredients.add("61c0c5a71d1f82001bdaaa6c");
+        ingredients.add(firstIngredient);
+        ingredients.add(secondIngredient);
         orderOne = new Order(ingredients);
 
         ingredientsTwo = new ArrayList<>();
-        ingredientsTwo.add("61c0c5a71d1f82001bdaaa6d");
-        ingredientsTwo.add("61c0c5a71d1f82001bdaaa76");
+        ingredientsTwo.add(secondIngredient);
+        ingredientsTwo.add(firstIngredient);
         orderTwo= new Order(ingredientsTwo);
 
     }

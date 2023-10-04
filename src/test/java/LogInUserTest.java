@@ -1,3 +1,4 @@
+import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.*;
 import user.User;
@@ -13,11 +14,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class LogInUserTest {
 
-
+    public static Faker faker = new Faker();
     private static String accessToken;
-    private static final String EMAIL = "email" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
-    private static final String PASSWORD = "password";
-    private static final String NAME = "name";
+    private static final String EMAIL = RandomStringUtils.randomNumeric(5) + faker.internet().emailAddress();
+    private static final String PASSWORD = faker.internet().password();
+    private static final String NAME = faker.name().firstName();
     public static final User USER = new User(EMAIL, PASSWORD, NAME);
 
     @BeforeClass

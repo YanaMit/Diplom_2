@@ -1,3 +1,4 @@
+import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import user.User;
 import user.UserAPI;
@@ -14,11 +15,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 
 public class CreateUserTest {
-
+    public static Faker faker = new Faker();
     private String accessToken;
-    private String email = "email" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
-    private String password = "password";
-    private String name = "name";
+    private String email = RandomStringUtils.randomNumeric(5) + faker.internet().emailAddress();
+    private String password = faker.internet().password();
+    private String name = faker.name().firstName();
 
     @Before
     public void setUp() {

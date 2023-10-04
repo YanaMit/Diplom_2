@@ -1,3 +1,4 @@
+import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.BeforeClass;
 import user.User;
@@ -12,15 +13,16 @@ import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ChangeUserTest {
+    public static Faker faker = new Faker();
 
     private static String accessToken;
-    private static final String EMAIL = "email" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
-    private static final String PASSWORD = "password";
-    private static final String NAME = "name";
+    private static final String EMAIL = RandomStringUtils.randomNumeric(5) + faker.internet().emailAddress();
+    private static final String PASSWORD = faker.internet().password();
+    private static final String NAME = faker.name().firstName();
 
-    private static final String EMAIL_NEW = "emailNew" + RandomStringUtils.randomNumeric(5) + "@yandex.ru";
-    private static final String PASSWORD_NEW  = "passwordNew";
-    private static final String NAME_NEW  = "nameNew";
+    private static final String EMAIL_NEW = RandomStringUtils.randomNumeric(5) + faker.internet().emailAddress();
+    private static final String PASSWORD_NEW  = faker.internet().password();
+    private static final String NAME_NEW  = faker.name().firstName();
 
     public static final User USER = new User(EMAIL, PASSWORD, NAME);
     public static final User CHANGED_USER = new User(EMAIL_NEW,PASSWORD_NEW,NAME_NEW);

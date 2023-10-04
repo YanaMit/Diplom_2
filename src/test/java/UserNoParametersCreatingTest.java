@@ -1,3 +1,4 @@
+import com.github.javafaker.Faker;
 import user.User;
 import user.UserAPI;
 import io.qameta.allure.junit4.DisplayName;
@@ -12,9 +13,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class UserNoParametersCreatingTest {
 
-    private String email = "email" + RandomStringUtils.randomNumeric(3) + "@yandex.ru";
-    private String password = "password";
-    private String name = "name";
+    public static Faker faker = new Faker();
+    private String email = RandomStringUtils.randomNumeric(3) + faker.internet().emailAddress();
+    private String password = faker.internet().password();
+    private String name = faker.name().firstName();
 
     @Before
     public void setUp() {
